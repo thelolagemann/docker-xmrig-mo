@@ -1,8 +1,9 @@
 // package main provides a small http server that serves the
 // xmrig-workers UI, as well as proxying any requests
-// made to http://<ip>:3001/api/$1 => http://<ip>:3000/$1.
+// made to http://<ip>:3001/api/$1 internally to port 3000.
 // This is to prevent confusion and misconfiguration between
-// the ports used to communicate with the xmrig API.
+// the ports used to communicate with the xmrig API, and any
+// CORs related permissions errors.
 package main
 
 import (
@@ -108,7 +109,9 @@ var (
 			c.RebenchAlgo = true
 		},
 		"WALLET_ADDRESS": func(c *config) {
-			c.Pools[0].User = os.Getenv("WALLET_ADDRESS")
+			if os.Getenv("WALLET_ADDRESS") != "" {
+				c.Pools[0].User = os.Getenv("WALLET_ADDRESS")
+			}
 		},
 	}
 )

@@ -61,7 +61,7 @@ docker run [-d] \
 | `PGID` | Group ID of the application. See [User/Group IDs](#usergroups-ids) to better understand when and why this should be set. | `1000` |
 | `RIG_NAME` | Name used to identify the mining rig. | Randomly generated |
 | `API_TOKEN` | API token used to access the xmrig API. | Randomly generated |
-| `WALLET_ADDRESS` | The xmr wallet to payout to. | `88yUzYzB9wrR2r2o1TzXxDMENr6Kbadr3caqKTBUNFZ3dWVt6sJcpWBAwMwNRtEi7nHcBcqzmExNfdNK7ughaCeUFuXXpPp` |
+| `WALLET_ADDRESS` | The xmr wallet to payout to. | (unset) |
 | `XMRIG_API_ENABLED` | Enable the xmrig API. | `true` |
 | `XMRIG_WORKERS_ENABLED` | Enable xmrig-workers<sup>[1](#envFt1)</sup> | `true` |
 | `XMRIG_WORKERS_AUTOCONFIGURE` | Automatically inject the xmrig api configuration into the xmrig-workers GUI.<sup>[2](#envFt2)</sup> | `true` |
