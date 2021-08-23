@@ -35,7 +35,7 @@ RUN git clone https://github.com/xmrig/xmrig-workers
 WORKDIR /xmrig-workers
 RUN sed -i 's/createBrowser/createHash/g' ./src/store/history.js
 RUN npm install
-RUN rm /xmrig-workers/public/* -r
+RUN rm /xmrig-workers/public/assets/js/app* /xmrig-workers/public/assets/css/app*
 RUN npm run build
 
 FROM alpine:3.14.1

@@ -10,9 +10,9 @@ A tiny docker container for quickly getting up and running with the MoneroOcean 
 * [Docker Compose](#docker-compose)
 * [Notes](#notes)
   * [User/Group IDs](#usergroups-ids)
+  * [Configuration](#configuration)
   * [MSR](#msr)
 * [Building](#building)
-* [TODO](#todo)
 
 ## Quick start
 **NOTE**: The command provided is an example and should be adjusted for your needs. 
@@ -65,8 +65,7 @@ docker run [-d] \
 | `XMRIG_API_ENABLED` | Enable the xmrig API. | `true` |
 | `XMRIG_WORKERS_ENABLED` | Enable xmrig-workers<sup>[1](#envFt1)</sup> | `true` |
 | `XMRIG_WORKERS_AUTOCONFIGURE` | Automatically inject the xmrig api configuration into the xmrig-workers GUI.<sup>[2](#envFt2)</sup> | `true` |
-| `BENCHMARK` | Enable benchmarks. By default the benchmarks will only be performed on the initial run. | (unset) |
-| `BENCHMARK_TIME` | Time in seconds to run each benchmark. | `20s` |
+| `BENCHMARK` | Enable benchmarks. By default the benchmarks will only be performed on the initial run. Useful when deploying to environments with dynamically allocated resources. | (unset) |
 
 <sup><a name="envFt1">1</a>: *Enabling xmrig-workers automatically enables the xmrig API*
 
@@ -107,7 +106,7 @@ services:
     - "3000:3000"
     - "3001:3001"
     volumes:
-      - "$HOME/xmrig-mo:/tmp:rw"
+      - "$HOME/xmrig-mo:/cfg:rw"
     environment:
       - WALLET_ADDRESS: "88yUzYzB9wrR2r2o1TzXxDMENr6Kbadr3caqKTBUNFZ3dWVt6sJcpWBAwMwNRtEi7nHcBcqzmExNfdNK7ughaCeUFuXXpPp"
       - RIG_NAME: "docker-cpu"

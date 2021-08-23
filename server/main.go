@@ -9,14 +9,11 @@ package main
 import (
 	"encoding/json"
 	"io"
-	"math/rand"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
 	"os"
-	"strconv"
 	"strings"
-	"time"
 )
 
 const (
@@ -36,8 +33,8 @@ func main() {
 	for env, f := range configMap {
 		envs := strings.Split(env, ",")
 		for _, e := range envs {
-			if os.Getenv(e) != "" {
-				f(c)
+			if v := os.Getenv(e); v != "" {
+				f(v, c)
 			}
 		}
 	}
@@ -47,7 +44,12 @@ func main() {
 	if os.Getenv("RIG_NAME") != "" {
 		rigName = os.Getenv("RIG_NAME")
 	} else {
-		rigName = randomString(8)
+		address, err := os.Hostname()
+		if err != nil {
+			rigName = "x"
+		} else {
+			rigName = address
+		}
 	}
 	c.Pools[0].Pass = rigName
 
@@ -91,27 +93,29 @@ func handleRequestOrRedirect(res http.ResponseWriter, req *http.Request) {
 }
 
 var (
-	configMap = map[string]func(c *config){
-		"XMRIG_API_ENABLED,XMRIG_WORKERS_ENABLED": func(c *config) {
-			if os.Getenv("API_TOKEN") != "" {
-				accessToken = os.Getenv("API_TOKEN")
+	configMap = map[string]func(value string, c *config){
+		"XMRIG_API_ENABLED,XMRIG_WORKERS_ENABLED": func(v string, c *config) {
+			if v == "true" {
+				if os.Getenv("API_TOKEN") != "" {
+					accessToken = os.Getenv("API_TOKEN")
+				} else {
+					panic("unset API_TOKEN")
+				}
+				c.HTTP.AccessToken = accessToken
+				c.HTTP.Enabled = true
 			} else {
-				accessToken = randomString(16)
+				c.HTTP.Enabled = false
 			}
-			c.HTTP.AccessToken = accessToken
 		},
-		"BENCHMARK": func(c *config) {
-			bTime, err := strconv.Atoi(os.Getenv("BENCHMARK_TIME"))
-			if err != nil {
-				panic(err)
+		"BENCHMARK": func(v string, c *config) {
+			if v == "true" {
+				c.RebenchAlgo = true
+			} else {
+				c.RebenchAlgo = false
 			}
-			c.BenchAlgoTime = bTime
-			c.RebenchAlgo = true
 		},
-		"WALLET_ADDRESS": func(c *config) {
-			if os.Getenv("WALLET_ADDRESS") != "" {
-				c.Pools[0].User = os.Getenv("WALLET_ADDRESS")
-			}
+		"WALLET_ADDRESS": func(v string, c *config) {
+			c.Pools[0].User = os.Getenv("WALLET_ADDRESS")
 		},
 	}
 )
@@ -245,7 +249,6 @@ type config struct {
 
 func openConfig() (*config, error){
 	f, err := os.Open(configLocation)
-	defer f.Close()
 	if err != nil {
 		return nil, err
 	}
@@ -273,29 +276,3 @@ func saveConfig(c *config) error {
 
 	return f.Close()
 }
-
-const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-const (
-	letterIdxBits = 6                    // 6 bits to represent a letter index
-	letterIdxMask = 1<<letterIdxBits - 1 // All 1-bits, as many as letterIdxBits
-	letterIdxMax  = 63 / letterIdxBits   // # of letter indices fitting in 63 bits
-)
-var src = rand.NewSource(time.Now().UnixNano())
-
-func randomString(n int) string {
-	sb := strings.Builder{}
-	sb.Grow(n)
-	for i, cache, remain := n-1, src.Int63(), letterIdxMax; i >= 0; {
-		if remain == 0 {
-			cache, remain = src.Int63(), letterIdxMax
-		}
-		if idx := int(cache & letterIdxMask); idx < len(letterBytes) {
-			sb.WriteByte(letterBytes[idx])
-			i--
-		}
-		cache >>= letterIdxBits
-		remain--
-	}
-	return sb.String()
-}
-
