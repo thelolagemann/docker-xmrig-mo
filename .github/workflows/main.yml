@@ -38,5 +38,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }} thelolagemann/xmrig-mo:latest
           labels: ${{ steps.meta.outputs.labels }}
