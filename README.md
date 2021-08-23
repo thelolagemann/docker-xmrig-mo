@@ -77,7 +77,7 @@ The following table describes data volumes used by the container. The mappings a
 
 | **Container Path** | **Permissions** | **Description** |
 | --- | --- | --- |
-| `/cfg` | rw | This is where the miner stores its [configuration](#config). |
+| `/cfg` | rw | This is where the miner stores its [configuration](#configuration). |
 
 ### Ports
 A list of ports used by the container. They can be mapped to the host via the `-p` parameter (one per port mapping).
