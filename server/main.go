@@ -147,34 +147,7 @@ type config struct {
 		Numa                   bool   `json:"numa"`
 		ScratchpadPrefetchMode int    `json:"scratchpad_prefetch_mode"`
 	} `json:"randomx"`
-	CPU struct {
-		Enabled         bool        `json:"enabled"`
-		HugePages       bool        `json:"huge-pages"`
-		HugePagesJit    bool        `json:"huge-pages-jit"`
-		HwAes           interface{} `json:"hw-aes"`
-		Priority        interface{} `json:"priority"`
-		MemoryPool      bool        `json:"memory-pool"`
-		Yield           bool        `json:"yield"`
-		Asm             bool        `json:"asm"`
-		Argon2Impl      interface{} `json:"argon2-impl"`
-		AstrobwtMaxSize int         `json:"astrobwt-max-size"`
-		AstrobwtAvx2    bool        `json:"astrobwt-avx2"`
-		Argon2          []int       `json:"argon2"`
-		Astrobwt        []int       `json:"astrobwt"`
-		Cn              [][]int     `json:"cn"`
-		CnHeavy         [][]int     `json:"cn-heavy"`
-		CnLite          [][]int     `json:"cn-lite"`
-		CnPico          [][]int     `json:"cn-pico"`
-		CnGpu           [][]int     `json:"cn/gpu"`
-		CnUpx2          [][]int     `json:"cn/upx2"`
-		Panthera        []int       `json:"panthera"`
-		Rx              []int       `json:"rx"`
-		RxWow           []int       `json:"rx/wow"`
-		CnLite0         bool        `json:"cn-lite/0"`
-		Cn0             bool        `json:"cn/0"`
-		RxArq           string      `json:"rx/arq"`
-		RxKeva          string      `json:"rx/keva"`
-	} `json:"cpu"`
+	CPU interface{} `json:"cpu"`
 	LogFile         interface{} `json:"log-file"`
 	DonateLevel     int         `json:"donate-level"`
 	DonateOverProxy int         `json:"donate-over-proxy"`
@@ -229,7 +202,7 @@ type config struct {
 		CnRwz          float64 `json:"cn/rwz"`
 		CnZls          float64 `json:"cn/zls"`
 		CnDouble       float64 `json:"cn/double"`
-		CnCcx          int     `json:"cn/ccx"`
+		CnCcx          float64     `json:"cn/ccx"`
 		CnLite1        float64 `json:"cn-lite/1"`
 		CnHeavyXhv     float64 `json:"cn-heavy/xhv"`
 		CnPico         float64 `json:"cn-pico"`
@@ -241,7 +214,7 @@ type config struct {
 		RxArq          float64 `json:"rx/arq"`
 		RxSfx          float64 `json:"rx/sfx"`
 		Argon2Chukwav2 float64 `json:"argon2/chukwav2"`
-		Astrobwt       int     `json:"astrobwt"`
+		Astrobwt       float64     `json:"astrobwt"`
 	} `json:"algo-perf"`
 	PauseOnBattery bool `json:"pause-on-battery"`
 	PauseOnActive  bool `json:"pause-on-active"`
