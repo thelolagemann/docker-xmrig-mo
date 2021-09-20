@@ -68,6 +68,15 @@ func main() {
 func handleRequestOrRedirect(res http.ResponseWriter, req *http.Request) {
 	target, _ := url.Parse("http://localhost:3000")
 
+	if req.Method == "OPTIONS" {
+		// xmrig api enables cors, but not options
+		res.Header().Set("Access-Control-Allow-Origin", "*")
+		res.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+		res.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type")
+		res.WriteHeader(200)
+		return
+	}
+
 	if req.Header.Get("Authorization") != "" {
 		proxy := httputil.NewSingleHostReverseProxy(target)
 		proxy.ServeHTTP(res, req)
