@@ -1,6 +1,6 @@
 FROM alpine:3.14.1 as xmrig-builder
 RUN apk add git make cmake libstdc++ gcc g++ automake libtool autoconf linux-headers
-ARG XMRIG_VERSION=6.16.2-mo1
+ARG XMRIG_VERSION=6.16.2-mo2
 RUN git clone https://github.com/moneroocean/xmrig.git --branch v${XMRIG_VERSION}
 RUN mkdir xmrig/build \
 	&& cd xmrig/scripts \

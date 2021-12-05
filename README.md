@@ -154,4 +154,4 @@ build arguments you can pass during build.
 
 | Argument | Description | Default |
 | --- | --- | --- |
-| `XMRIG_VERSION` | The version of xmrig-mo to build | `6.16.2-mo1` |
+| `XMRIG_VERSION` | The version of xmrig-mo to build | `6.16.2-mo2` |
