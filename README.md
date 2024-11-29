@@ -3,7 +3,7 @@ A tiny docker container for quickly getting up and running with the MoneroOcean 
 
 ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/thelolagemann/xmrig-mo?style=flat-square)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/thelolagemann/docker-xmrig-mo/main.yml)
-![Xmrig Version](https://img.shields.io/badge/xmrig-v6.21.2-orange?style=flat-square)
+![Xmrig Version](https://img.shields.io/badge/xmrig-v6.22.2-orange?style=flat-square)
 ### Table of Contents
 * [Quick Start](#quick-start)
 * [Usage](#usage)
@@ -158,4 +158,4 @@ build arguments you can pass during build.
 
 | Argument        | Description                      | Default      |
 |-----------------|----------------------------------|--------------|
-| `XMRIG_VERSION` | The version of xmrig-mo to build | `6.21.2-mo1` |
+| `XMRIG_VERSION` | The version of xmrig-mo to build | `6.22.2-mo1` |
