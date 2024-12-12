@@ -18,4 +18,4 @@ if [ "$XMRIG_WORKERS_ENABLED" = true ]; then
   /xmrig-workers/server &
 fi
 
-exec xmrig -c /cfg/config.json
+exec xmrig -c /cfg/config.json -p "$RIG_NAME"
