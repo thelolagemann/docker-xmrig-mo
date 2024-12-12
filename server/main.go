@@ -232,7 +232,10 @@ type config struct {
 func openConfig() (*config, error){
 	f, err := os.Open(configLocation)
 	if err != nil {
-		return nil, err
+		f, err = os.Open("/usr/local/bin/config.json")
+		if err != nil {
+			return nil, err
+		}
 	}
 	b, err := io.ReadAll(f)
 	if err != nil {
