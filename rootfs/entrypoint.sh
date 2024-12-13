@@ -16,6 +16,7 @@ export RIG_NAME=${RIG_NAME:-$(tr -dc A-Za-z0-9 </dev/urandom | head -c 8 ; echo 
 # xmrig-workers control
 if [ "$XMRIG_WORKERS_ENABLED" = true ]; then
   /xmrig-workers/server &
+  sleep 5
 fi
 
 exec xmrig -c /cfg/config.json -p "$RIG_NAME"
